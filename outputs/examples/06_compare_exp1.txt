@@ -1,0 +1,11 @@
+Experiment 'exp1-baseline-v1' (ctx id=2, status=COMPLETE), ranked by f1 on the fraud class:
+
+|   model id | ver   | run                | algorithm          | classifier params                                                                             | tfidf params                                                |   accuracy |   precision |   recall |     f1 |   roc_auc | best   | serving now   |
+|------------|-------|--------------------|--------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|------------|-------------|----------|--------|-----------|--------|---------------|
+|          8 | v3    | linsvc_C0.5_bi     | LinearSVC          | {"C": 0.5, "class_weight": "balanced"}                                                        | {"max_features": 50000, "min_df": 2, "ngram_range": [1, 2]} |     0.9927 |      0.9509 |   0.896  | 0.9226 |    0.9918 | ★      |               |
+|          6 | v2    | logreg_C10_bi      | LogisticRegression | {"C": 10.0, "class_weight": "balanced", "max_iter": 2000}                                     | {"max_features": 50000, "min_df": 2, "ngram_range": [1, 2]} |     0.9924 |      0.9294 |   0.9133 | 0.9213 |    0.993  |        |               |
+|          4 | v1    | logreg_C1_uni      | LogisticRegression | {"C": 1.0, "class_weight": "balanced", "max_iter": 2000}                                      | {"max_features": 20000, "min_df": 2, "ngram_range": [1, 1]} |     0.9813 |      0.7573 |   0.9017 | 0.8232 |    0.9901 |        |               |
+|         10 | v4    | linsvc_C0.1_uni_5k | LinearSVC          | {"C": 0.1, "class_weight": "balanced"}                                                        | {"max_features": 5000, "min_df": 2, "ngram_range": [1, 1]}  |     0.9737 |      0.6681 |   0.9075 | 0.7696 |    0.9903 |        |               |
+|         12 | v5    | rf_200_uni         | RandomForest       | {"class_weight": "balanced_subsample", "n_estimators": 200, "n_jobs": -1, "random_state": 42} | {"max_features": 5000, "min_df": 2, "ngram_range": [1, 1]}  |     0.9776 |      1      |   0.5376 | 0.6992 |    0.9886 |        |               |
+
+Saved outputs/compare_exp1-baseline-v1.md and outputs/compare_exp1-baseline-v1.csv

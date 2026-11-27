@@ -1,0 +1,5 @@
+|   ctx id | experiment           | status   | created (UTC)             | raw data   |   models |   best model | metric   | code         |
+|----------|----------------------|----------|---------------------------|------------|----------|--------------|----------|--------------|
+|        2 | exp1-baseline-v1     | COMPLETE | 2026-11-27T01:34:25+00:00 | v1 (#1)    |        5 |            8 | f1       | 1bcbd39c1b71 |
+|        3 | exp2-rerun-same-data | COMPLETE | 2026-11-27T01:35:39+00:00 | v1 (#1)    |        5 |           21 | f1       | 1bcbd39c1b71 |
+|        4 | exp3-data-v2         | COMPLETE | 2026-11-27T01:36:43+00:00 | v2 (#28)   |        5 |           33 | f1       | 1bcbd39c1b71 |

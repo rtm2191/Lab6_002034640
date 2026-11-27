@@ -1,0 +1,4 @@
+|   id | type       | name           | ver   | details                        | uri                           |
+|------|------------|----------------|-------|--------------------------------|-------------------------------|
+|    1 | RawDataset | raw_dataset_v1 | v1    | sha256=59253295129d rows=17880 | data/fake_job_postings.csv    |
+|   28 | RawDataset | raw_dataset_v2 | v2    | sha256=b8b2b0867a4f rows=16092 | data/fake_job_postings_v2.csv |

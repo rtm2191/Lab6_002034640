@@ -1,0 +1,20 @@
+MLMD store: /app/mlmd_store/metadata.db
+Experiment 'exp2-rerun-same-data' (context id=3) | pipeline context id=1 | code 1bcbd39c1b71 | data data/fake_job_postings.csv
+  [ingest] unchanged file -> reusing RawDataset id=1 v1 sha256=59253295129d
+  [validate] 5 checks passed; kept 17880/17880 rows, fraud rate 4.84% -> ValidatedDataset id=15
+  [split] train=14304 test=3576 -> TrainTestSplit id=16
+  [train] logreg_C1_uni        LogisticRegression    5.3s -> Model id=17 v6
+  [evaluate] model id=17  acc=0.9813 P=0.7573 R=0.9017 F1=0.8232 AUC=0.9901 -> Metrics id=18
+  [train] logreg_C10_bi        LogisticRegression   10.5s -> Model id=19 v7
+  [evaluate] model id=19  acc=0.9924 P=0.9294 R=0.9133 F1=0.9213 AUC=0.9930 -> Metrics id=20
+  [train] linsvc_C0.5_bi       LinearSVC             9.7s -> Model id=21 v8
+  [evaluate] model id=21  acc=0.9927 P=0.9509 R=0.8960 F1=0.9226 AUC=0.9918 -> Metrics id=22
+  [train] linsvc_C0.1_uni_5k   LinearSVC             3.1s -> Model id=23 v9
+  [evaluate] model id=23  acc=0.9737 P=0.6681 R=0.9075 F1=0.7696 AUC=0.9903 -> Metrics id=24
+  [train] rf_200_uni           RandomForest          6.8s -> Model id=25 v10
+  [evaluate] model id=25  acc=0.9776 P=1.0000 R=0.5376 F1=0.6992 AUC=0.9886 -> Metrics id=26
+  [select] queried 5 candidates from MLMD; best by f1: model id=21 (linsvc_C0.5_bi) f1=0.9226
+  [deploy] model v8 (id=21) -> outputs/serving/model.joblib as ServingModel id=27 serving_v2; retired serving id(s) [14]
+
+Done. Experiment 'exp2-rerun-same-data': deployed Model id=21 (v8, linsvc_C0.5_bi) as ServingModel id=27
+Next: python -m src.cli compare --experiment exp2-rerun-same-data

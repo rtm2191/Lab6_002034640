@@ -1,0 +1,11 @@
+Experiment 'exp3-data-v2' (ctx id=4, status=COMPLETE), ranked by f1 on the fraud class:
+
+|   model id | ver   | run                | algorithm          | classifier params                                                                             | tfidf params                                                |   accuracy |   precision |   recall |     f1 |   roc_auc | best   | serving now   |
+|------------|-------|--------------------|--------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|------------|-------------|----------|--------|-----------|--------|---------------|
+|         33 | v12   | logreg_C10_bi      | LogisticRegression | {"C": 10.0, "class_weight": "balanced", "max_iter": 2000}                                     | {"max_features": 50000, "min_df": 2, "ngram_range": [1, 2]} |     0.9901 |      0.9353 |   0.8497 | 0.8904 |    0.9925 | ★      | yes           |
+|         35 | v13   | linsvc_C0.5_bi     | LinearSVC          | {"C": 0.5, "class_weight": "balanced"}                                                        | {"max_features": 50000, "min_df": 2, "ngram_range": [1, 2]} |     0.9901 |      0.9549 |   0.8301 | 0.8881 |    0.9925 |        |               |
+|         31 | v11   | logreg_C1_uni      | LogisticRegression | {"C": 1.0, "class_weight": "balanced", "max_iter": 2000}                                      | {"max_features": 20000, "min_df": 2, "ngram_range": [1, 1]} |     0.977  |      0.7112 |   0.8693 | 0.7824 |    0.9888 |        |               |
+|         37 | v14   | linsvc_C0.1_uni_5k | LinearSVC          | {"C": 0.1, "class_weight": "balanced"}                                                        | {"max_features": 5000, "min_df": 2, "ngram_range": [1, 1]}  |     0.9724 |      0.6553 |   0.8824 | 0.7521 |    0.9876 |        |               |
+|         39 | v15   | rf_200_uni         | RandomForest       | {"class_weight": "balanced_subsample", "n_estimators": 200, "n_jobs": -1, "random_state": 42} | {"max_features": 5000, "min_df": 2, "ngram_range": [1, 1]}  |     0.9764 |      1      |   0.5033 | 0.6696 |    0.9862 |        |               |
+
+Saved outputs/compare_exp3-data-v2.md and outputs/compare_exp3-data-v2.csv

@@ -1,0 +1,1 @@
+data/fake_job_postings.csv: 17880 rows -> data/fake_job_postings_v2.csv: 16092 rows (dropped 1788, fraud rate 4.75%)

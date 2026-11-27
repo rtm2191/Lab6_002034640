@@ -1,0 +1,13 @@
+Backward lineage of artifact #33 (contexts: fake-job-detection, exp3-data-v2)
+
+<Model #33> v12 LogisticRegression run=logreg_C10_bi params={'C': 10.0, 'class_weight': 'balanced', 'max_iter': 2000}  uri=outputs/models/model_v12.joblib  ★ DEPLOYED
+└<- [Train execution #36] state=COMPLETE start=2026-11-27T01:36:53+00:00 code=1bcbd39c1b71 run=logreg_C10_bi
+    └<- <TrainTestSplit #30> train=12873 test=3219 seed=42  uri=outputs/runs/exp3-data-v2/split_indices.json
+        └<- [Split execution #33] state=COMPLETE start=2026-11-27T01:36:48+00:00 code=1bcbd39c1b71
+            └<- <ValidatedDataset #29> rows_kept=16092/16092 fraud_rate=0.0475  uri=outputs/runs/exp3-data-v2/validated.csv
+                └<- [Validate execution #32] state=COMPLETE start=2026-11-27T01:36:44+00:00 code=1bcbd39c1b71
+                    └<- <RawDataset #28> v2 rows=16092 sha256=b8b2b0867a4f7a1a… file=fake_job_postings_v2.csv  uri=data/fake_job_postings_v2.csv  (registered by 1 Ingest execution(s): [31])
+
+=> trained on RawDataset #28 v2 (fake_job_postings_v2.csv, sha256 b8b2b0867a4f7a1a64163c0c96f1f0c263f867ee9131fb6ccd1950fb096a1587)
+
+Saved outputs/trace_model_33.txt

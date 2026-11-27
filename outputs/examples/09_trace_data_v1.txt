@@ -1,0 +1,20 @@
+Forward lineage of artifact #1: <RawDataset #1> v1 rows=17880 sha256=59253295129d8b6a… file=fake_job_postings.csv  uri=data/fake_job_postings.csv
+
+10 model(s) were trained downstream of artifact #1:
+
+|   model id | ver   | run                | experiment           |     f1 | deployed   |
+|------------|-------|--------------------|----------------------|--------|------------|
+|          4 | v1    | logreg_C1_uni      | exp1-baseline-v1     | 0.8232 |            |
+|          6 | v2    | logreg_C10_bi      | exp1-baseline-v1     | 0.9213 |            |
+|          8 | v3    | linsvc_C0.5_bi     | exp1-baseline-v1     | 0.9226 | previously |
+|         10 | v4    | linsvc_C0.1_uni_5k | exp1-baseline-v1     | 0.7696 |            |
+|         12 | v5    | rf_200_uni         | exp1-baseline-v1     | 0.6992 |            |
+|         17 | v6    | logreg_C1_uni      | exp2-rerun-same-data | 0.8232 |            |
+|         19 | v7    | logreg_C10_bi      | exp2-rerun-same-data | 0.9213 |            |
+|         21 | v8    | linsvc_C0.5_bi     | exp2-rerun-same-data | 0.9226 | previously |
+|         23 | v9    | linsvc_C0.1_uni_5k | exp2-rerun-same-data | 0.7696 |            |
+|         25 | v10   | rf_200_uni         | exp2-rerun-same-data | 0.6992 |            |
+
+(full lineage tree saved to the file below; pass --verbose to print it)
+
+Saved outputs/trace_data_1.txt

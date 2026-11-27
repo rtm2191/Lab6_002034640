@@ -1,0 +1,20 @@
+MLMD store: /app/mlmd_store/metadata.db
+Experiment 'exp3-data-v2' (context id=4) | pipeline context id=1 | code 1bcbd39c1b71 | data data/fake_job_postings_v2.csv
+  [ingest] new RawDataset id=28 v2 rows=16092 sha256=b8b2b0867a4f
+  [validate] 5 checks passed; kept 16092/16092 rows, fraud rate 4.75% -> ValidatedDataset id=29
+  [split] train=12873 test=3219 -> TrainTestSplit id=30
+  [train] logreg_C1_uni        LogisticRegression    3.8s -> Model id=31 v11
+  [evaluate] model id=31  acc=0.9770 P=0.7112 R=0.8693 F1=0.7824 AUC=0.9888 -> Metrics id=32
+  [train] logreg_C10_bi        LogisticRegression   10.3s -> Model id=33 v12
+  [evaluate] model id=33  acc=0.9901 P=0.9353 R=0.8497 F1=0.8904 AUC=0.9925 -> Metrics id=34
+  [train] linsvc_C0.5_bi       LinearSVC             9.3s -> Model id=35 v13
+  [evaluate] model id=35  acc=0.9901 P=0.9549 R=0.8301 F1=0.8881 AUC=0.9925 -> Metrics id=36
+  [train] linsvc_C0.1_uni_5k   LinearSVC             2.8s -> Model id=37 v14
+  [evaluate] model id=37  acc=0.9724 P=0.6553 R=0.8824 F1=0.7521 AUC=0.9876 -> Metrics id=38
+  [train] rf_200_uni           RandomForest          6.3s -> Model id=39 v15
+  [evaluate] model id=39  acc=0.9764 P=1.0000 R=0.5033 F1=0.6696 AUC=0.9862 -> Metrics id=40
+  [select] queried 5 candidates from MLMD; best by f1: model id=33 (logreg_C10_bi) f1=0.8904
+  [deploy] model v12 (id=33) -> outputs/serving/model.joblib as ServingModel id=41 serving_v3; retired serving id(s) [27]
+
+Done. Experiment 'exp3-data-v2': deployed Model id=33 (v12, logreg_C10_bi) as ServingModel id=41
+Next: python -m src.cli compare --experiment exp3-data-v2

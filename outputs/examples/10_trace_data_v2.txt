@@ -1,0 +1,15 @@
+Forward lineage of artifact #28: <RawDataset #28> v2 rows=16092 sha256=b8b2b0867a4f7a1a… file=fake_job_postings_v2.csv  uri=data/fake_job_postings_v2.csv
+
+5 model(s) were trained downstream of artifact #28:
+
+|   model id | ver   | run                | experiment   |     f1 | deployed   |
+|------------|-------|--------------------|--------------|--------|------------|
+|         31 | v11   | logreg_C1_uni      | exp3-data-v2 | 0.7824 |            |
+|         33 | v12   | logreg_C10_bi      | exp3-data-v2 | 0.8904 | ★ ACTIVE   |
+|         35 | v13   | linsvc_C0.5_bi     | exp3-data-v2 | 0.8881 |            |
+|         37 | v14   | linsvc_C0.1_uni_5k | exp3-data-v2 | 0.7521 |            |
+|         39 | v15   | rf_200_uni         | exp3-data-v2 | 0.6696 |            |
+
+(full lineage tree saved to the file below; pass --verbose to print it)
+
+Saved outputs/trace_data_28.txt

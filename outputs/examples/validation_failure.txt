@@ -1,0 +1,18 @@
+wrote data/broken_job_postings.csv: 17880 rows, no 'company_profile' column, 3% invalid labels, 25% empty text
+MLMD store: /app/mlmd_store/failure_test.db
+Experiment 'broken-demo' (context id=2) | pipeline context id=1 | code 1bcbd39c1b71 | data data/broken_job_postings.csv
+  [ingest] new RawDataset id=1 v1 rows=17880 sha256=d5281fb825e8
+  [validate] FAILED required_columns: missing ['company_profile']
+  [validate] FAILED label_values: 536 rows with labels outside [0, 1] (e.g. ['unknown'])
+  [validate] FAILED empty_text_rate: 25.00% empty (max 1.00%)
+
+PIPELINE STOPPED: Validation failed (3 check(s)); execution id=2 recorded as FAILED
+
+$ python -m src.cli executions --state FAILED
+|   id | type     | state   | start                     |   secs | inputs   | outputs   | error                                                                                      |
+|------|----------|---------|---------------------------|--------|----------|-----------|--------------------------------------------------------------------------------------------|
+|    2 | Validate | FAILED  | 2026-11-27T01:38:15+00:00 |  0.562 | [1]      | []        | validation checks failed: required_columns: missing ['company_profile']; label_values: 536 |
+$ python -m src.cli list-experiments
+|   ctx id | experiment   | status   | created (UTC)             | raw data   |   models | best model   | metric   | code         |
+|----------|--------------|----------|---------------------------|------------|----------|--------------|----------|--------------|
+|        2 | broken-demo  | FAILED   | 2026-11-27T01:38:14+00:00 | v1 (#1)    |        0 | -            | f1       | 1bcbd39c1b71 |
