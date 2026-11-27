@@ -1,3 +1,7 @@
 * text=auto eol=lf
 *.png binary
 *.ps1 text eol=crlf
+# Byte-exact files: the MLMD store records the CSVs' sha256, so git must never rewrite them
+data/*.csv binary
+*.db binary
+*.joblib binary

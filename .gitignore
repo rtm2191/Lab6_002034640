@@ -1,15 +1,22 @@
-# Metadata store (regenerate with the pipeline)
+# Metadata store: metadata.db is committed (example store from the verified run);
+# scratch stores such as failure_test.db are not.
 mlmd_store/*
 !mlmd_store/.gitkeep
+!mlmd_store/metadata.db
 
-# Dataset (download separately, see README)
+# Datasets: v1 and v2 are committed; other CSVs (e.g. the broken demo file) are not
 data/*
 !data/.gitkeep
+!data/fake_job_postings.csv
+!data/fake_job_postings_v2.csv
 
-# Large / regenerable pipeline outputs
+# Pipeline outputs: models, serving model and examples are committed;
+# per-run intermediates (validated CSV copies, split indices) are regenerable
 outputs/*
 !outputs/.gitkeep
 !outputs/examples/
+!outputs/models/
+!outputs/serving/
 
 __pycache__/
 *.pyc

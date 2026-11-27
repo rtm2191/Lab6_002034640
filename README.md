@@ -57,7 +57,11 @@ git clone https://github.com/rtm2191/Lab6_002034640.git
 cd Lab6_002034640
 ```
 
-**Dataset.** This is the *EMSCAD Employment Scam Aegean Dataset*: 17,880 job postings, of which 866 (4.8%) are fraudulent. The label column is `fraudulent`. The dataset is not committed to the repo.
+**Dataset.** This is the *EMSCAD Employment Scam Aegean Dataset*: 17,880 job postings, of which 866 (4.8%) are fraudulent. The label column is `fraudulent`.
+
+**It is already in the repo**: cloning gives you `data/fake_job_postings.csv` (v1) and `data/fake_job_postings_v2.csv` (v2, made by `scripts/make_data_v2.py`), so you can skip to [step 3](#3-build-and-run). The repo also contains the metadata store from the verified run (`mlmd_store/metadata.db`) and its trained models (`outputs/models/`, `outputs/serving/`). The query commands in [section 4](#4-every-cli-command) therefore work straight after `docker compose build`, without running the pipeline first.
+
+If you ever need to download the original file again:
 
 1. Download it from Kaggle: <https://www.kaggle.com/datasets/shivamb/real-or-fake-fake-jobposting-prediction>. A free Kaggle account is needed. Click **Download** to get `archive.zip`.
 2. Unzip it and copy **`fake_job_postings.csv`** into this project's `data` folder:
@@ -282,10 +286,15 @@ The original Lab 2 runs a TFX pipeline on the Census dataset through `Interactiv
 │   ├── lineage.py             lineage queries (backward/forward traversal, experiment runs)
 │   ├── graph.py               graphviz + pyvis rendering
 │   └── cli.py                 python -m src.cli ...
-├── outputs/examples/          committed sample outputs for grading (graphs, tables, traces)
-├── data/                      put fake_job_postings.csv here (git-ignored)
-└── mlmd_store/                metadata.db is created here (git-ignored)
+├── outputs/
+│   ├── examples/              sample outputs for grading (graphs, tables, traces)
+│   ├── models/                model_v1..v15.joblib from the verified run (committed)
+│   └── serving/model.joblib   the currently deployed model (committed)
+├── data/                      fake_job_postings.csv (v1) and _v2.csv (committed)
+└── mlmd_store/metadata.db     MLMD store from the verified run (committed)
 ```
+
+The CSVs, store and models are marked `binary` in `.gitattributes`, so git never rewrites their bytes. The store records each CSV's sha256, so a fresh clone recognises the committed files as the existing v1/v2 instead of registering new versions. Per-run intermediates in `outputs/runs/` (copies of the validated CSV, split indices, metrics JSON) are not committed. Their paths are still recorded in MLMD, and running the pipeline regenerates them.
 
 (The types module is named `mlmd_types.py` rather than `types.py` so it can never shadow Python's standard-library `types` module.)
 
@@ -299,7 +308,8 @@ The original Lab 2 runs a TFX pipeline on the Census dataset through `Interactiv
 | Volume / permission errors (`Permission denied`, empty `data/` inside the container) | Run commands from the project folder. Make sure the drive is shared (Docker Desktop → Settings → Resources → File sharing, for Hyper-V setups). On Linux, files the container writes are owned by root: `sudo chown -R $USER outputs mlmd_store`. |
 | Image pull / `pip install` fails with a network error | Retry `docker compose build`, which resumes. Behind a proxy, set it in Docker Desktop → Settings → Resources → Proxies. |
 | `Experiment 'X' already exists` | Experiment names are unique Context names. Pick another `--name`, or leave it out to get a timestamped name. |
-| **Reset the metadata store** (start over) | `Remove-Item .\mlmd_store\metadata.db` (or `rm mlmd_store/metadata.db`). To clear generated files too: `Remove-Item -Recurse .\outputs\runs, .\outputs\models, .\outputs\serving, .\outputs\graphs`. Keep `outputs/examples`. Ids start again from 1. |
+| **Reset the metadata store** (start over) | `Remove-Item .\mlmd_store\metadata.db` (or `rm mlmd_store/metadata.db`). To clear generated files too: `Remove-Item -Recurse .\outputs\runs, .\outputs\models, .\outputs\serving, .\outputs\graphs`. Keep `outputs/examples`. Ids start again from 1. The store and models are committed, so `git checkout -- mlmd_store outputs/models outputs/serving` restores the verified versions. |
+| The committed store already has experiments, so my new run's ids differ from the README | Expected: a new run continues from the committed store (e.g. the next model is v16). Reset the store as above to reproduce the README's ids exactly. |
 | Ids in this README don't match yours | Ids depend on the order of runs. Use `list-experiments` and `list-artifacts --type Model` to find yours, or `--experiment latest`. |
 | `graph` HTML is blank | It loads vis-network from cdnjs, so it needs internet access. The PNG/SVG work offline. |
 | Code edits not picked up | `src/` is baked into the image, so run `docker compose build` after editing Python code. `config/` is mounted, so config edits apply immediately. |
