@@ -1,0 +1,53 @@
+# Experiment configuration for the fake-job-posting pipeline.
+# Every entry under `runs` becomes its own Train + Evaluate execution and its own
+# versioned Model + Metrics artifacts in MLMD.
+
+experiment:
+  name: tfidf_sweep            # a timestamp is appended so every run gets a unique Experiment context
+  description: >-
+    TF-IDF + linear/tree classifiers on EMSCAD fake job postings; compares
+    model families, regularisation strength, vocabulary size and n-gram range.
+  selection_metric: f1         # any of: accuracy, precision, recall, f1, roc_auc (fraud class = 1)
+
+data:
+  path: data/fake_job_postings.csv
+  label: fraudulent
+  text_fields: [title, company_profile, description, requirements, benefits]
+
+validation:
+  required_columns: [title, company_profile, description, requirements, benefits, fraudulent]
+  allowed_labels: [0, 1]
+  max_empty_text_rate: 0.01    # max share of rows whose combined text is empty
+  min_rows: 1000
+  min_fraud_rate: 0.01         # both classes must be present in a usable amount
+
+split:
+  test_size: 0.2
+  random_state: 42
+  stratify: true
+
+runs:
+  - name: logreg_C1_uni
+    algorithm: LogisticRegression
+    params: {C: 1.0, class_weight: balanced, max_iter: 2000}
+    tfidf: {max_features: 20000, ngram_range: [1, 1], min_df: 2}
+
+  - name: logreg_C10_bi
+    algorithm: LogisticRegression
+    params: {C: 10.0, class_weight: balanced, max_iter: 2000}
+    tfidf: {max_features: 50000, ngram_range: [1, 2], min_df: 2}
+
+  - name: linsvc_C0.5_bi
+    algorithm: LinearSVC
+    params: {C: 0.5, class_weight: balanced}
+    tfidf: {max_features: 50000, ngram_range: [1, 2], min_df: 2}
+
+  - name: linsvc_C0.1_uni_5k
+    algorithm: LinearSVC
+    params: {C: 0.1, class_weight: balanced}
+    tfidf: {max_features: 5000, ngram_range: [1, 1], min_df: 2}
+
+  - name: rf_200_uni
+    algorithm: RandomForest
+    params: {n_estimators: 200, class_weight: balanced_subsample, n_jobs: -1, random_state: 42}
+    tfidf: {max_features: 5000, ngram_range: [1, 1], min_df: 2}
