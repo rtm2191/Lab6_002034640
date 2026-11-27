@@ -1,0 +1,5 @@
+.git
+data
+mlmd_store
+outputs
+**/__pycache__

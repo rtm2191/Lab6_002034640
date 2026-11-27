@@ -1,0 +1,13 @@
+services:
+  mlmd:
+    build: .
+    image: lab6-mlmd:latest
+    working_dir: /app
+    environment:
+      MLMD_DB: /app/mlmd_store/metadata.db
+    volumes:
+      - ./data:/app/data               # dataset CSVs (input)
+      - ./config:/app/config           # edit experiment configs without rebuilding
+      - ./mlmd_store:/app/mlmd_store   # SQLite metadata store (persists between runs)
+      - ./outputs:/app/outputs         # models, comparison tables, lineage graphs
+      - ./.git:/app/.git:ro            # read-only, used to record the code version (commit hash)

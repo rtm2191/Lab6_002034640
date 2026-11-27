@@ -1,0 +1,17 @@
+# Metadata store (regenerate with the pipeline)
+mlmd_store/*
+!mlmd_store/.gitkeep
+
+# Dataset (download separately, see README)
+data/*
+!data/.gitkeep
+
+# Large / regenerable pipeline outputs
+outputs/*
+!outputs/.gitkeep
+!outputs/examples/
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
