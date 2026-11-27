@@ -122,7 +122,7 @@ def cmd_compare(args):
         raise SystemExit(f"Experiment '{ctx.name}' has no evaluated models (status={get_prop(ctx, 'status')}).")
     best_id = max(runs, key=lambda r: get_prop(r["metrics"], metric))["model"].id
     deployed = lin.deployed_model_ids()
-    header = ["model id", "ver", "run", "algorithm", "classifier params", "tfidf params", *METRIC_COLS, "best", "deployed"]
+    header = ["model id", "ver", "run", "algorithm", "classifier params", "tfidf params", *METRIC_COLS, "best", "serving now"]
     rows = []
     for r in sorted(runs, key=lambda r: -get_prop(r["metrics"], metric)):
         m, met = r["model"], r["metrics"]
